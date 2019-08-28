@@ -2,11 +2,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 class ApplicationControl {
 
     private MainForm mainForm;
     private File selectedFile;
+    private CoordinatesFileReader coordinatesFileReader;
 
     public ApplicationControl(JFrame frame) {
 
@@ -22,11 +24,21 @@ class ApplicationControl {
                 if (fileChooser.showOpenDialog(mainForm) == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     mainForm.setPath(selectedFile.getPath());
+
+                    coordinatesFileReader = new CoordinatesFileReader(selectedFile.getPath());
+
+
                 }
             }
         });
 
     }
+
+    public void fillTable(List<String[]> list) {
+
+    }
+
+
 
 
 

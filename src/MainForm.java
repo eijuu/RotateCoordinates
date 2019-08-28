@@ -7,7 +7,6 @@ public class MainForm extends Component {
     private JPanel pathPanel;
     private JTextField pathTextField;
     private JButton browsePathButton;
-    private JComboBox selectSeparatorComboBox;
     private JComboBox coordinateXComboBox;
     private JComboBox coordinateYComboBox;
     private JCheckBox headerIsExistCheckBox;
@@ -45,6 +44,12 @@ public class MainForm extends Component {
     private JButton calculateButton;
     private JPanel centerPanel;
     private JTable showFileTable;
+    private JRadioButton separatorTabRadio;
+    private JRadioButton separatorSpaceRadio;
+    private JRadioButton separatorCommaRadio;
+    private JRadioButton separatorSemicolonRadio;
+    private JRadioButton separatorAnotherRadio;
+    private JTextField separatorAnotherTextField;
 
     public MainForm(JFrame frame) {
 
@@ -61,5 +66,25 @@ public class MainForm extends Component {
 
     public void setPath(String path) {
         pathTextField.setText(path);
+    }
+
+    public String getSeparator() {
+        if (separatorTabRadio.isSelected()) {
+            return "\t";
+        } else if (separatorSpaceRadio.isSelected()) {
+            return " ";
+        } else if (separatorCommaRadio.isSelected()) {
+            return ",";
+        } if (separatorSemicolonRadio.isSelected()) {
+            return ";";
+        /*if (separatorAnotherRadio.isSelected())*/
+        } else {
+            return separatorAnotherTextField.getText();
+        }
+    }
+
+    public void showFileTableClear() {
+        showFileTable.selectAll();
+        showFileTable.clearSelection();
     }
 }

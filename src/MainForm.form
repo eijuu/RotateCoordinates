@@ -46,7 +46,7 @@
               </component>
             </children>
           </grid>
-          <grid id="37d76" binding="selectSeparatorPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="37d76" binding="selectSeparatorPanel" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -54,9 +54,52 @@
             <properties/>
             <border type="none" title-resource-bundle="mainForm" title-key="selectSeparatorPanel"/>
             <children>
-              <component id="7c2c5" class="javax.swing.JComboBox" binding="selectSeparatorComboBox">
+              <component id="28971" class="javax.swing.JRadioButton" binding="separatorTabRadio">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <selected value="true"/>
+                  <text resource-bundle="mainForm" key="separatorTabRadio"/>
+                </properties>
+              </component>
+              <component id="1bea6" class="javax.swing.JRadioButton" binding="separatorSpaceRadio">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="mainForm" key="separatorSpaceRadio"/>
+                </properties>
+              </component>
+              <component id="93795" class="javax.swing.JRadioButton" binding="separatorCommaRadio">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="mainForm" key="separatorCommaRadio"/>
+                </properties>
+              </component>
+              <component id="1e2bc" class="javax.swing.JRadioButton" binding="separatorSemicolonRadio">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="mainForm" key="separatorSemicolonRadio"/>
+                </properties>
+              </component>
+              <component id="3e266" class="javax.swing.JRadioButton" binding="separatorAnotherRadio">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="mainForm" key="separatorAnotherRadio"/>
+                </properties>
+              </component>
+              <component id="c83b0" class="javax.swing.JTextField" binding="separatorAnotherTextField">
+                <constraints>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties/>
               </component>
@@ -426,6 +469,13 @@
     <group name="directionRotateGroup">
       <member id="69472"/>
       <member id="432c8"/>
+    </group>
+    <group name="SelectSeparator">
+      <member id="28971"/>
+      <member id="1bea6"/>
+      <member id="93795"/>
+      <member id="1e2bc"/>
+      <member id="3e266"/>
     </group>
   </buttonGroups>
   <inspectionSuppressions>
