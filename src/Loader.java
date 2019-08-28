@@ -7,6 +7,7 @@ public class Loader {
         JFrame frame = new JFrame();
         ApplicationControl appControl = new ApplicationControl(frame);
 
+
         frame.setTitle("Coordinates Rotate App");
         frame.setSize(800,800);
         frame.setLocationRelativeTo(null);

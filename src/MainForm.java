@@ -1,10 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
 
-public class MainForm {
+public class MainForm extends Component {
     private JPanel rootPanel;
     private JPanel northPanel;
     private JPanel pathPanel;
-    private JTextField textField1;
+    private JTextField pathTextField;
     private JButton browsePathButton;
     private JComboBox selectSeparatorComboBox;
     private JComboBox coordinateXComboBox;
@@ -46,42 +47,19 @@ public class MainForm {
     private JTable showFileTable;
 
     public MainForm(JFrame frame) {
-//        pathPanel.setBorder(BorderFactory.createTitledBorder("Specify the path to the file"));
-//        browsePathButton.setText("Browse...");
-//        selectSeparatorPanel.setBorder(BorderFactory.createTitledBorder("Select separator"));
-//
-//        selectColumnXYPanel.setBorder(BorderFactory.createTitledBorder("Select XY coordinates"));
-//        coordinateXPanel.setBorder(BorderFactory.createTitledBorder("X coordinate"));
-//        coordinateYPanel.setBorder(BorderFactory.createTitledBorder("Y coordinate"));
-//
-//        headerExistPanel.setBorder(BorderFactory.createTitledBorder("The file has headers"));
-//        headerIsExistCheckBox.setText("Exist");
-//
-//        firstPointPanel.setBorder(BorderFactory.createTitledBorder("First point"));
-//        firstPointCoordXPanel.setBorder(BorderFactory.createTitledBorder("X-1"));
-//        firstPointCoordYPanel.setBorder(BorderFactory.createTitledBorder("Y-1"));
-//        secondPointPanel.setBorder(BorderFactory.createTitledBorder("Second point"));
-//        secondPointCoordXPanel.setBorder(BorderFactory.createTitledBorder("X-2"));
-//        secondPointCoordYPanel.setBorder(BorderFactory.createTitledBorder("Y-2"));
-//
-//        singlePointPanel.setBorder(BorderFactory.createTitledBorder("Single point"));
-//        singlePointCoordXPanel.setBorder(BorderFactory.createTitledBorder("X"));
-//        singlePointCoordYPanel.setBorder(BorderFactory.createTitledBorder("Y"));
-//        azimuthPanel.setBorder(BorderFactory.createTitledBorder("Azimuth (in degrees)"));
-//
-//        chooseDirection.setBorder(BorderFactory.
-//                createTitledBorder("Choose direction coordinates rotate"));
-//        absToRelRadio.setText("Absolute to relative");
-//        relToAbsRadio.setText("Relative to absolute");
-//
-//        controlPanel.setBorder(BorderFactory.createTitledBorder("Control panel"));
-//        calculateButton.setText("Calculate");
-//        saveButton.setText("Save to...");
-//
-//        centerPanel.setBorder(BorderFactory.createTitledBorder("Show table"));
+
+
     }
 
     public JPanel getRootPanel() {
         return rootPanel;
+    }
+
+    public JButton getBrowsePathButton() {
+        return browsePathButton;
+    }
+
+    public void setPath(String path) {
+        pathTextField.setText(path);
     }
 }
