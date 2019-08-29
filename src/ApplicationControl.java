@@ -26,7 +26,7 @@ class ApplicationControl {
                     mainForm.setPath(selectedFile.getPath());
 
                     coordinatesFileReader = new CoordinatesFileReader(selectedFile.getPath());
-
+                    fillTable(coordinatesFileReader.getListFromFile(mainForm.getSeparator()), 20);
 
                 }
             }
@@ -34,13 +34,29 @@ class ApplicationControl {
 
     }
 
-    public void fillTable(List<String[]> list) {
+    public void fillTable(List<String[]> list, int maxLines) {
+        Object[] tableColumn = new Object[list.get(0).length];
+        Object[][] data;
+
+        if (mainForm.getHeaderExist()) {
+            System.arraycopy(list.get(0), 0, tableColumn, 0, tableColumn.length);
+
+            data = new Object[Math.min(maxLines, list.size()+1)][list.get(0).length];
+            for (int i = 0; i < data.length; i++) {
+                System.arraycopy(list.get(i+1), 0, data[i], 0, data[i].length);
+            }
+        } else {
+            for (int i = 0; i < tableColumn.length; i++) {
+                tableColumn[i] = i;
+            }
+            data = new Object[Math.min(maxLines, list.size())][list.get(0).length];
+            for (int i = 0; i < data.length; i++) {
+                System.arraycopy(list.get(i), 0, data[i], 0, data[i].length);
+            }
+        }
+        mainForm.fillTable(tableColumn, data);
 
     }
-
-
-
-
 
 
 

@@ -42,7 +42,6 @@ public class MainForm extends Component {
     private JPanel controlPanel;
     private JButton saveButton;
     private JButton calculateButton;
-    private JPanel centerPanel;
     private JTable showFileTable;
     private JRadioButton separatorTabRadio;
     private JRadioButton separatorSpaceRadio;
@@ -50,6 +49,7 @@ public class MainForm extends Component {
     private JRadioButton separatorSemicolonRadio;
     private JRadioButton separatorAnotherRadio;
     private JTextField separatorAnotherTextField;
+    private JPanel southPanel;
 
     public MainForm(JFrame frame) {
 
@@ -83,8 +83,21 @@ public class MainForm extends Component {
         }
     }
 
-    public void showFileTableClear() {
+    public void tableClear() {
         showFileTable.selectAll();
         showFileTable.clearSelection();
     }
+
+    public void fillTable(Object[] columnNames, Object[][] data) {
+       // tableClear();
+        showFileTable = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(showFileTable);
+        southPanel.add(scrollPane);
+    }
+
+    public boolean getHeaderExist() {
+        return headerIsExistCheckBox.isSelected();
+    }
+
+
 }
