@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainForm extends Component {
     private JPanel rootPanel;
-    private JPanel northPanel;
     private JPanel pathPanel;
     private JTextField pathTextField;
     private JButton browsePathButton;
@@ -42,14 +44,15 @@ public class MainForm extends Component {
     private JPanel controlPanel;
     private JButton saveButton;
     private JButton calculateButton;
-    private JTable showFileTable;
     private JRadioButton separatorTabRadio;
     private JRadioButton separatorSpaceRadio;
     private JRadioButton separatorCommaRadio;
     private JRadioButton separatorSemicolonRadio;
     private JRadioButton separatorAnotherRadio;
     private JTextField separatorAnotherTextField;
-    private JPanel southPanel;
+    private JPanel showDataPanel;
+    private JTextArea showDataTextArea;
+
 
     public MainForm(JFrame frame) {
 
@@ -83,21 +86,39 @@ public class MainForm extends Component {
         }
     }
 
-    public void tableClear() {
-        showFileTable.selectAll();
-        showFileTable.clearSelection();
-    }
 
-    public void fillTable(Object[] columnNames, Object[][] data) {
-       // tableClear();
-        showFileTable = new JTable(data, columnNames);
-        JScrollPane scrollPane = new JScrollPane(showFileTable);
-        southPanel.add(scrollPane);
-    }
 
     public boolean getHeaderExist() {
         return headerIsExistCheckBox.isSelected();
     }
 
 
+    public JPanel getShowDataPanel() {
+        return showDataPanel;
+    }
+
+    public void setTextIntoShowDataTextArea(String[] columns, ArrayList<String[]> data) {
+        showDataTextArea.setText(null);
+
+        for (int i = 0; i < columns.length; i++) {
+            if (i != columns.length - 1) {
+                showDataTextArea.append(columns[i] + "\t|\t");
+            } else {
+                showDataTextArea.append(columns[i]);
+            }
+        }
+        showDataTextArea.append("\n");
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < data.get(i).length; j++) {
+                if (j != data.get(i).length - 1) {
+                    showDataTextArea.append(data.get(i)[j] + "\t|\t");
+                } else {
+                    showDataTextArea.append(data.get(i)[j]);
+                }
+            }
+            showDataTextArea.append("\n");
+        }
+        showDataTextArea.append("....");
+        showDataTextArea.setCaretPosition(0);
+    }
 }
