@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +60,6 @@ public class MainForm extends Component {
 
     public MainForm(JFrame frame) {
 
-
     }
 
     public JPanel getRootPanel() {
@@ -97,7 +100,7 @@ public class MainForm extends Component {
         return showDataPanel;
     }
 
-    public void setTextIntoShowDataTextArea(String[] columns, ArrayList<String[]> data) {
+    public void fillFileViewer(String[] columns, ArrayList<String[]> data) {
         showDataTextArea.setText(null);
 
         for (int i = 0; i < columns.length; i++) {
@@ -120,5 +123,29 @@ public class MainForm extends Component {
         }
         showDataTextArea.append("....");
         showDataTextArea.setCaretPosition(0);
+    }
+
+    public JRadioButton getSeparatorTabRadio() {
+        return separatorTabRadio;
+    }
+
+    public JRadioButton getSeparatorSpaceRadio() {
+        return separatorSpaceRadio;
+    }
+
+    public JRadioButton getSeparatorCommaRadio() {
+        return separatorCommaRadio;
+    }
+
+    public JRadioButton getSeparatorSemicolonRadio() {
+        return separatorSemicolonRadio;
+    }
+
+    public JRadioButton getSeparatorAnotherRadio() {
+        return separatorAnotherRadio;
+    }
+
+    public JTextField getSeparatorAnotherTextField() {
+        return separatorAnotherTextField;
     }
 }

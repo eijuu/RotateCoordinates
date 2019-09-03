@@ -5,17 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class CoordinatesFileReader {
+public class FileWithCoordinates {
 
-    List<String> allFile;
+    private List<String> allFile;
 
-    public CoordinatesFileReader(String filePath) {
+    public FileWithCoordinates(String pathToFile) {
         try {
-            allFile = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)
+            allFile = Files.lines(Paths.get(pathToFile), StandardCharsets.UTF_8)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -23,7 +21,7 @@ public class CoordinatesFileReader {
     }
 
     public String[] getColumns(boolean columnExist, String separator) {
-
+        assert allFile != null : "not file";
         String[] res = allFile.get(0).split(separator);
         if (!columnExist) {
             for (int i = 0; i < res.length; i++) {
@@ -34,6 +32,8 @@ public class CoordinatesFileReader {
     }
 
     public List<String[]> getData(boolean columnExist, String separator, int maxRows) {
+        assert allFile != null : "not file";
+
         List<String[]> res;
         if (maxRows == 0) {
             res = allFile.stream()
@@ -55,8 +55,9 @@ public class CoordinatesFileReader {
         return getData(columnExist, separator, 0);
     }
 
-
     public Point2D.Double[] getXY(int xColumn, int yColumn, boolean columnExist, String separator) {
+        assert allFile != null : "not file";
+
         ArrayList<String[]> temp = (ArrayList<String[]>) getData(columnExist, separator);
         Point2D.Double[] pointRes = new Point2D.Double[temp.size()];
         try {
@@ -70,8 +71,5 @@ public class CoordinatesFileReader {
         }
         return pointRes;
     }
-
-
-
 
 }
