@@ -1,10 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,8 +8,8 @@ public class MainForm extends Component {
     private JPanel pathPanel;
     private JTextField pathTextField;
     private JButton browsePathButton;
-    private JComboBox coordinateXComboBox;
-    private JComboBox coordinateYComboBox;
+    private JComboBox<String> coordinateXComboBox;
+    private JComboBox<String>  coordinateYComboBox;
     private JCheckBox headerIsExistCheckBox;
     private JPanel selectSeparatorPanel;
     private JPanel selectColumnXYPanel;
@@ -57,7 +52,6 @@ public class MainForm extends Component {
     private JPanel showDataPanel;
     private JTextArea showDataTextArea;
 
-
     public MainForm(JFrame frame) {
 
     }
@@ -70,28 +64,30 @@ public class MainForm extends Component {
         return browsePathButton;
     }
 
-    public void setPath(String path) {
+    public void setPathToPathTextField(String path) {
         pathTextField.setText(path);
     }
 
-    public String getSeparator() {
+    public JTextField getPathTextField() {
+        return pathTextField;
+    }
+
+    public String recognizeSeparator() {
         if (separatorTabRadio.isSelected()) {
             return "\t";
         } else if (separatorSpaceRadio.isSelected()) {
             return " ";
         } else if (separatorCommaRadio.isSelected()) {
             return ",";
-        } if (separatorSemicolonRadio.isSelected()) {
+        }
+        if (separatorSemicolonRadio.isSelected()) {
             return ";";
-        /*if (separatorAnotherRadio.isSelected())*/
         } else {
             return separatorAnotherTextField.getText();
         }
     }
 
-
-
-    public boolean getHeaderExist() {
+    public boolean recognizeHeaderExist() {
         return headerIsExistCheckBox.isSelected();
     }
 
@@ -111,6 +107,19 @@ public class MainForm extends Component {
             }
         }
         showDataTextArea.append("\n");
+
+        String[] rowSeparator = new String[columns.length];
+        Arrays.fill(rowSeparator, "-----------");
+
+        for (int i = 0; i < columns.length; i++) {
+            if (i != rowSeparator.length - 1) {
+                showDataTextArea.append(rowSeparator[i] + "\t|\t");
+            } else {
+                showDataTextArea.append(rowSeparator[i]);
+            }
+        }
+        showDataTextArea.append("\n");
+
         for (int i = 0; i < data.size(); i++) {
             for (int j = 0; j < data.get(i).length; j++) {
                 if (j != data.get(i).length - 1) {
@@ -148,4 +157,26 @@ public class MainForm extends Component {
     public JTextField getSeparatorAnotherTextField() {
         return separatorAnotherTextField;
     }
+
+    public JCheckBox getHeaderIsExistCheckBox() {
+        return headerIsExistCheckBox;
+    }
+
+    public void fillXYCoordinateSelector(String[] header) {
+        coordinateXComboBox.removeAllItems();
+        coordinateYComboBox.removeAllItems();
+        for (String s : header) {
+            coordinateXComboBox.addItem(s);
+            coordinateYComboBox.addItem(s);
+        }
+    }
+
+    public void selectXCoordinate(int c) {
+        coordinateXComboBox.setSelectedIndex(c);
+    }
+
+    public void selectYCoordinate(int c) {
+        coordinateYComboBox.setSelectedIndex(c);
+    }
+
 }

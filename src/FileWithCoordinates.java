@@ -20,10 +20,17 @@ public class FileWithCoordinates {
         }
     }
 
-    public String[] getColumns(boolean columnExist, String separator) {
+
+
+    public String[] getHeader(boolean headerExist, String separator) {
         assert allFile != null : "not file";
-        String[] res = allFile.get(0).split(separator);
-        if (!columnExist) {
+        String[] res;
+        try {
+            res = allFile.get(0).split(separator);
+        } catch (Exception e) {
+            res = new String[] { allFile.get(0) };
+        }
+        if (!headerExist) {
             for (int i = 0; i < res.length; i++) {
                 res[i] = String.valueOf(i);
             }
@@ -31,21 +38,29 @@ public class FileWithCoordinates {
         return res;
     }
 
-    public List<String[]> getData(boolean columnExist, String separator, int maxRows) {
+    public List<String[]> getData(boolean headerExist, String separator, int maxRows) {
         assert allFile != null : "not file";
 
         List<String[]> res;
-        if (maxRows == 0) {
+        try {
+            if (maxRows == 0) {
+                res = allFile.stream()
+                        .map(s -> s.split(separator))
+                        .collect(Collectors.toList());
+            } else {
+                res = allFile.stream()
+                        .map(s -> s.split(separator))
+                        .limit(maxRows)
+                        .collect(Collectors.toList());
+            }
+        } catch (Exception e) {
             res = allFile.stream()
-                    .map(s -> s.split(separator))
-                    .collect(Collectors.toList());
-        } else {
-            res = allFile.stream()
-                    .map(s -> s.split(separator))
+                    .map(s -> s.split(""))
                     .limit(maxRows)
                     .collect(Collectors.toList());
         }
-        if (columnExist) {
+
+        if (headerExist) {
             res.remove(0);
         }
         return res;

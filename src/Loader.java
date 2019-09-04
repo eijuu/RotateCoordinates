@@ -4,14 +4,11 @@ public class Loader {
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame();
-        FormController appControl = new FormController(frame);
+        //JFrame frame = new JFrame();
+        FormController appControl = new FormController();
 
 
-        frame.setTitle("Coordinates Rotate App");
-        frame.setSize(800,800);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
 
     }
