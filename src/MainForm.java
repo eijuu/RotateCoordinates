@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainForm extends Component {
+public class MainForm extends Component implements ViewInterface{
     private JPanel rootPanel;
     private JPanel pathPanel;
     private JTextField pathTextField;
@@ -51,6 +52,24 @@ public class MainForm extends Component {
     private JTextField separatorAnotherTextField;
     private JPanel showDataPanel;
     private JTextArea showDataTextArea;
+
+
+    private final int FILE_DISPLAY_MAX_ROWS = 20;
+    private final String COORDINATE_X_IDENTIFIER = "x";
+    private final String COORDINATE_Y_IDENTIFIER = "y";
+
+    private String separator;
+    private boolean headerExists;
+    private String pathToFile;
+    private int columnXCoordinate;
+    private int columnYCoordinate;
+
+    private Point2D firstPoint;
+    private Point2D secondPoint;
+    private double azimuth;
+    private boolean directionRotate;
+
+    private FileWithCoordinates coordinatesObject;
 
     public MainForm(JFrame frame) {
 
@@ -120,12 +139,12 @@ public class MainForm extends Component {
         }
         showDataTextArea.append("\n");
 
-        for (int i = 0; i < data.size(); i++) {
-            for (int j = 0; j < data.get(i).length; j++) {
-                if (j != data.get(i).length - 1) {
-                    showDataTextArea.append(data.get(i)[j] + "\t|\t");
+        for (String[] datum : data) {
+            for (int j = 0; j < datum.length; j++) {
+                if (j != datum.length - 1) {
+                    showDataTextArea.append(datum[j] + "\t|\t");
                 } else {
-                    showDataTextArea.append(data.get(i)[j]);
+                    showDataTextArea.append(datum[j]);
                 }
             }
             showDataTextArea.append("\n");
@@ -171,12 +190,125 @@ public class MainForm extends Component {
         }
     }
 
-    public void selectXCoordinate(int c) {
+    private void selectXCoordinate(int c) {
         coordinateXComboBox.setSelectedIndex(c);
     }
 
-    public void selectYCoordinate(int c) {
+    private void selectYCoordinate(int c) {
         coordinateYComboBox.setSelectedIndex(c);
     }
 
+    @Override
+    public String getSeparator() {
+        return separator;
+    }
+
+    @Override
+    public void setSeparator(String separator) {
+        this.separator = separator;
+    }
+
+    @Override
+    public boolean getHeaderInFileExists() {
+        return headerExists;
+    }
+
+    @Override
+    public void setHeaderInFileExists(boolean headerExists) {
+        this.headerExists = headerExists;
+    }
+
+    @Override
+    public void setPathToFile(String pathToFile) {
+        this.pathToFile = pathToFile;
+    }
+
+    @Override
+    public String getPathToFile() {
+        return pathToFile;
+    }
+
+    @Override
+    public boolean setColumnForXCoordinate(int column) {
+        try {
+            selectXCoordinate(column);
+            columnXCoordinate = column;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setColumnForYCoordinate(int column) {
+        try {
+            selectYCoordinate(column);
+            columnYCoordinate = column;
+        } catch (Exception e) {
+            return false;
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public void setFirstPoint(Point2D.Double firstPoint) {
+        this.firstPoint = firstPoint;
+    }
+
+    @Override
+    public void setSecondPoint(Point2D.Double secondPoint) {
+        this.secondPoint = secondPoint;
+    }
+
+    @Override
+    public void setAzimuth(double angleInDegrees) {
+        azimuth = angleInDegrees;
+    }
+
+    @Override
+    public void setDirectionCoordinatesRotate(boolean direction) {
+        this.directionRotate = direction;
+    }
+
+    @Override
+    public boolean getDirectionCoordinatesRotate() {
+        return directionRotate;
+    }
+
+    @Override
+    public void fileDisplay() {
+        setSeparator(recognizeSeparator());
+        setHeaderInFileExists(recognizeHeaderExist());
+        if (coordinatesObject != null) {
+            String[] header = coordinatesObject.getHeader(headerExists, separator);
+            ArrayList<String[]> data = (ArrayList<String[]>) coordinatesObject.getData(headerExists,
+                    separator, FILE_DISPLAY_MAX_ROWS);
+            fillFileViewer(header, data);
+
+        }
+    }
+
+    public void setCoordinatesObject(FileWithCoordinates coordinatesObject) {
+        this.coordinatesObject = coordinatesObject;
+    }
+
+    public void fillXYCoordinateSelector() {
+        if (coordinatesObject != null) {
+            String[] header = coordinatesObject.getHeader(headerExists, separator);
+            fillXYCoordinateSelector(header);
+            setColumnForXCoordinate(0);
+            setColumnForYCoordinate(0);
+            for (int i = 0; i < header.length; i++) {
+                if (header[i].toLowerCase().contains(COORDINATE_X_IDENTIFIER)) {
+                    setColumnForXCoordinate(i);
+                }
+                if (header[i].toLowerCase().contains(COORDINATE_Y_IDENTIFIER)) {
+                    setColumnForYCoordinate(i);
+                }
+            }
+        }
+
+    }
 }
